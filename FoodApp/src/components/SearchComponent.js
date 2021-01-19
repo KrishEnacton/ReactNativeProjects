@@ -39,7 +39,8 @@ const styles = StyleSheet.create({
         height: 50,
     },
     input: {
-        fontSize: 18
+        fontSize: 18,
+        flex: 1
     },
     icon: {
         alignSelf: "center",

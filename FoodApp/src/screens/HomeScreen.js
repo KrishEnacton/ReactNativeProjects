@@ -7,6 +7,9 @@ import {
     ActivityIndicator
 } from 'react-native';
 import yelp from '../api/yelp';
+import BootstrapStyleSheet from 'react-native-bootstrap-styles';
+import { Button } from 'react-native-paper';
+
 
 import SearchComponent from '../components/SearchComponent';
 import ResultComponent from '../components/ResultComponent'
@@ -18,6 +21,10 @@ const HomeScreen = ({ navigation }) => {
     const [normal, setNormal] = useState([]);
     const [expensive, setExpensive] = useState([]);
     const [flag, setFlag] = useState(true);
+
+    // Bootstrap
+    const bootstrapStyleSheet = new BootstrapStyleSheet();
+    const { s, c } = bootstrapStyleSheet;
 
     useEffect(() => {
         searchApi();
@@ -74,32 +81,39 @@ const HomeScreen = ({ navigation }) => {
     }
 
     return (
-        <ScrollView style={styles.theme}>
-            <View style={styles.theme}>
-                <SearchComponent searchData={setSearch} applySearch={searchApi} />
-                <Text style={styles.header}>Your serach is : {search} and result is : {result.length}</Text>
+
+        <View style={styles.parentView}>
+
+            <SearchComponent searchData={setSearch} applySearch={searchApi} />
+            <Text style={styles.header}>Your serach is : {search} and result is : {result.length}</Text>
+            <ScrollView >
                 {flag ? <ActivityIndicator style={{ marginTop: "10%" }} size="large" color="White" /> : <>
                     <ResultComponent title="Cheap" responce={cheap} navigation={navigation} />
                     <ResultComponent title="Normal" responce={normal} navigation={navigation} />
                     <ResultComponent title="Expensive" responce={expensive} navigation={navigation} />
                 </>}
-            </View>
-        </ScrollView>
+            </ScrollView>
+
+        </View>
+
     );
 };
 
 const styles = StyleSheet.create({
-    theme: {
-        backgroundColor: "black"
+    parentView: {
+        flex: 1,
+        backgroundColor: "black",
     },
+
     header: {
+
         textAlign: "center",
         fontSize: 15,
         fontWeight: "bold",
         marginBottom: 10,
-        color: "white"
+        color: "white",
+
     }
 });
-
 
 export default HomeScreen;
