@@ -1,0 +1,10 @@
+Animated.timing(value,{
+    toValue:100,
+    duration:1000,
+    useNativeDriver:false
+}).start();
+
+Animated.spring(value,{
+    toValue:100,
+    useNativeDriver:false
+}).start();

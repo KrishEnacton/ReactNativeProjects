@@ -1,114 +1,120 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import posed from 'react-native-pose';
 import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
   View,
   Text,
-  StatusBar,
+  StyleSheet,
+  Animated,
+  ScrollView,
+  TouchableOpacity,
 } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import SafeAreaView from 'react-native-safe-area-view';
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+// Components
+import AnimatedHeader from './components/AnimatedHeader';
+import DATA from './Data';
 
-const App: () => React$Node = () => {
+const App = () => {
+
+  //const leftValue = useState(new Animated.Value(0))[0];
+  const offset = useState(new Animated.Value(0))[0];
+  //const [flag, setFlag] = useState(0);
+
+  // const moveBall = () => {
+  //   Animated.timing(leftValue, {
+  //     toValue: 300,
+  //     duration: 1000,
+  //     useNativeDriver: false
+  //   }).start();
+  //   console.log("Inside Fun Value: ", leftValue);
+  // }
+
+  // const moveBallWithSpring = () => {
+  //   if (flag == 0) {
+  //     Animated.spring(leftValue, {
+  //       toValue: 295,
+  //       useNativeDriver: false
+  //     }).start();
+  //     setFlag(1);
+  //   }
+  //   else {
+  //     Animated.spring(leftValue, {
+  //       toValue: 0,
+  //       useNativeDriver: false
+  //     }).start();
+  //     setFlag(0);
+  //   }
+
+  //   console.log("Inside Fun Value: ", leftValue);
+  // }
+
+  // console.log("Value: ", leftValue);
+
   return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
+    <SafeAreaProvider>
+      {/* <View style={styles.container}>
+        <TouchableOpacity onPress={moveBallWithSpring}>
+          <Animated.View style={[styles.myView, { marginLeft: leftValue }]}>
+          </Animated.View>
+        </TouchableOpacity>
+      </View> */}
+      <SafeAreaView style={{ flex: 1 }} forceInset={{ top: 'always' }}>
+        <AnimatedHeader animatedValue={offset} />
         <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Header />
-          {global.HermesInternal == null ? null : (
-            <View style={styles.engine}>
-              <Text style={styles.footer}>Engine: Hermes</Text>
-            </View>
+          style={{ flex: 1, backgroundColor: 'white' }}
+          contentContainerStyle={{
+            alignItems: 'center',
+            paddingTop: 220,
+            paddingHorizontal: 20
+          }}
+          showsVerticalScrollIndicator={false}
+          scrollEventThrottle={16}
+          onScroll={Animated.event([
+            {
+              nativeEvent: {
+                contentOffset: {
+                  y: offset
+                }
+              }
+            }
+          ],
+            { useNativeDriver: false }
           )}
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.js</Text> to change this
-                screen and then come back to see your edits.
+        >
+          {DATA.map(item => (
+            <View
+              key={item.id}
+              style={{
+                marginBottom: 20
+              }}
+            >
+              <Text style={{ color: '#101010', fontSize: 32 }}>
+                {item.title}
               </Text>
             </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
-          </View>
+          ))}
         </ScrollView>
       </SafeAreaView>
-    </>
+    </SafeAreaProvider>
+
   );
 };
 
 const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center"
   },
-  engine: {
-    position: 'absolute',
-    right: 0,
-  },
-  body: {
-    backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
-  },
+
+  myView: {
+    backgroundColor: "red",
+    borderRadius: 50,
+    height: 100,
+    width: 100,
+
+  }
 });
 
 export default App;
