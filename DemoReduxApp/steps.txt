@@ -1,0 +1,2 @@
+1) Install pacakge react-redux and redux.
+2) import connect from "react-redux" in component
