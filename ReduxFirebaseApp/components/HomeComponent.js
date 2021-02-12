@@ -11,6 +11,7 @@ const HomeComponent = ({ navigation }) => {
             <View style={{ marginTop: "50%" }}>
                 <Button title="Redux Saga" onPress={() => navigation.navigate('Redux')} />
                 <Button title="Firebase" onPress={() => navigation.navigate('Firebase')} />
+                <Button title="Webview" onPress={() => navigation.navigate('Webview')} />
             </View>
         </>
     );

@@ -28,7 +28,7 @@ const ReduxComponent = ({ navigation }) => {
                     data={UserReducer}
                     keyExtractor={(item, index) => (index.toString())}
                     renderItem={({ item }) => {
-                        console.log("Item : ", item);
+
                         return (
                             <Text>{item.first_name}</Text>
                         )

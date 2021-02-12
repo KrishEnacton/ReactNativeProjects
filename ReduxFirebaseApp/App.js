@@ -11,6 +11,7 @@ const Stack = createStackNavigator();
 import HomeComponent from './components/HomeComponent';
 import FirebaseComponent from './components/FirebaseComponent';
 import ReduxComponent from './components/ReduxComponent';
+import WebviewComponent from './components/WebviewComponent';
 
 const App = () => {
   return (
@@ -47,6 +48,20 @@ const App = () => {
         <Stack.Screen
           name="Redux"
           component={ReduxComponent}
+          options={{
+            title: 'Redux', headerShown: true, headerStyle: {
+              backgroundColor: '#f4511e',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+            headerTitleStyle: { alignSelf: 'center' },
+          }}
+        />
+        <Stack.Screen
+          name="Webview"
+          component={WebviewComponent}
           options={{
             title: 'Redux', headerShown: true, headerStyle: {
               backgroundColor: '#f4511e',
